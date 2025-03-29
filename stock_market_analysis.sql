@@ -14,3 +14,13 @@ create table market_data(
     
 select * 
 from market_data;
+
+
+
+-- Daily Price Change/Movement
+/*
+This query calculates the absolute price movement for each stock by computing the difference between the closing and opening prices on a given day.
+Helps identify daily gainers and losers in the stock market. 
+*/
+select stock_id, trade_date, close_price-open_price as price_change
+from market_data;
