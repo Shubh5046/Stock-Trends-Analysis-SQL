@@ -44,3 +44,31 @@ select stock_id, date_format(trade_date, "%Y-%m") as `month`, max(high_price) as
 from market_data
 group by stock_id, `month`;
 
+
+-- Volatility Analysis
+/*
+Stock volatility is a measure of risk and market uncertainty.
+High volatility signals higher risk & greater price fluctuations.
+*/
+select stock_id, trade_date, (high_price - low_price) / low_price * 100 AS volatility_percentage
+from market_data;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
