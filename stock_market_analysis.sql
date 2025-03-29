@@ -91,6 +91,22 @@ select stock_id, trade_date, close_price,
 from market_data;
 
 
+-- Alerts for Sudden Price Drops or Surges
+/*
+This query detects sudden 5%+ price movements and triggers alerts.
+Helps traders react quickly to sharp price changes.
+*/
+select stock_id, trade_date, close_price,  
+       (close_price-lag(close_price, 1)over(partition by stock_id order by trade_date))/lag(close_price, 1)over(partition by stock_id order by trade_date) * 100 as daily_change,  
+       case  
+           when (close_price-lag(close_price, 1)over(partition by stock_id order by trade_date))/lag(close_price, 1)over(partition by stock_id order by trade_date) * 100 > 5  then 'price surge alert'  
+           when (close_price-lag(close_price, 1)over(partition by stock_id order by trade_date))/lag(close_price, 1)over(partition by stock_id order by trade_date) * 100 < -5 then 'price drop alert'  
+           else null  
+       end as alert  
+from market_data;
+
+
+
 
 
 
