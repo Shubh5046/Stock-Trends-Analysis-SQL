@@ -81,6 +81,18 @@ select stock_id,
 from market_data;
 
 
+-- 30-Day Standard Deviation for Volatility
+/*
+This query calculates the 30-day rolling standard deviation of stock prices to measure long-term risk.
+Higher standard deviation means higher risk.
+*/
+select stock_id, trade_date, close_price,  
+       stddev(close_price) over (partition by stock_id order by trade_date rows between 29 preceding and current row) as volatility_30d  
+from market_data;
+
+
+
+
 
 
 
