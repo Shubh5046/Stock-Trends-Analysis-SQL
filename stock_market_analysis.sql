@@ -33,3 +33,14 @@ Investors use moving averages to filter out short-term price fluctuations and de
 */
 select stock_id, trade_date, avg(close_price)over(partition by stock_id order by trade_date rows between 6 preceding and current row) as moving_avg_7d
 from market_data;
+
+
+-- Highest & Lowest Prices of a stock in a month
+/*
+This query extracts the highest and lowest stock prices within each month to track overall market performance.
+Useful for identifying historical resistance and support levels in trading.
+*/
+select stock_id, date_format(trade_date, "%Y-%m") as `month`, max(high_price) as max_price, min(low_price) as min_price
+from market_data
+group by stock_id, `month`;
+
