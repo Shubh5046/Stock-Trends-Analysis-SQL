@@ -106,7 +106,23 @@ select stock_id, trade_date, close_price,
 from market_data;
 
 
-
+-- Simulating Trading Strategy - Moving Average Crossover
+/*
+A 50-day and 200-day moving average crossover strategy helps traders time market entry and exit.
+A crossover signals potential buying/selling opportunities.
+*/
+with moving_averages as (  
+    select stock_id, trade_date, close_price,  
+           avg(close_price) over (partition by stock_id order by trade_date rows between 49 preceding and current row) as ma_50,  
+           avg(close_price) over (partition by stock_id order by trade_date rows between 199 preceding and current row) as ma_200  
+    from market_data)
+select stock_id, trade_date, close_price,  
+       case  
+           when ma_50 > ma_200 and lag(ma_50, 1) over (partition by stock_id order by trade_date) <= lag(ma_200, 1) over (partition by stock_id order by trade_date)  then 'buy'  
+           when ma_50 < ma_200 and lag(ma_50, 1) over (partition by stock_id order by trade_date) >= lag(ma_200, 1) over (partition by stock_id order by trade_date)  then 'sell'  
+           else 'hold'  
+       end as action  
+from moving_averages;
 
 
 
