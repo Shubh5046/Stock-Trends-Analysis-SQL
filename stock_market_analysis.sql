@@ -66,6 +66,20 @@ group by stock_id
 order by monthly_return desc;
 
 
+-- Trend Identification: Bullish vs Bearish Trends
+/*
+This query determines whether a stock is in an uptrend or downtrend based on previous closing prices.
+Helps traders confirm market direction before making a decision.
+*/
+select stock_id, 
+	   trade_date, 
+	   close_price,
+       case 
+           when close_price > lag(close_price, 1)over(partition by stock_id order by trade_date) then 'uptrend'
+           else 'downtrend'
+       end as trend
+from market_data;
+
 
 
 
