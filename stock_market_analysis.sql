@@ -50,11 +50,20 @@ group by stock_id, `month`;
 Stock volatility is a measure of risk and market uncertainty.
 High volatility signals higher risk & greater price fluctuations.
 */
-select stock_id, trade_date, (high_price - low_price) / low_price * 100 AS volatility_percentage
+select stock_id, trade_date, (high_price - low_price) / low_price * 100 as volatility_percentage
 from market_data;
 
 
-
+-- Best Performing Stocks in the Last Month
+/*
+This query identifies stocks with the highest returns in the last month by computing percentage growth.
+Investors can use this to spot strong-performing stocks for potential investment.
+*/
+select stock_id, (max(close_price)-min(open_price))/min(open_price) * 100 AS monthly_return
+from market_data
+where trade_date>=date_sub(curdate(), interval 1 month)
+group by stock_id
+order by monthly_return desc;
 
 
 
