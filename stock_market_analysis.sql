@@ -24,3 +24,12 @@ Helps identify daily gainers and losers in the stock market.
 */
 select stock_id, trade_date, close_price-open_price as price_change
 from market_data;
+
+
+-- 7-Day Moving Average
+/*
+A moving average smooths out price fluctuations and identifies trends over time. This query calculates the 7-day moving average of closing prices.
+Investors use moving averages to filter out short-term price fluctuations and detect ongoing trends.
+*/
+select stock_id, trade_date, avg(close_price)over(partition by stock_id order by trade_date rows between 6 preceding and current row) as moving_avg_7d
+from market_data;
