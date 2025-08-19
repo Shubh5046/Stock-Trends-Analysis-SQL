@@ -1,6 +1,3 @@
-# Stock-Trends-Analysis-SQL
-Financial Analytics and Risk Mitigation.
-=======
 # Stock-Trends-Analysis-SQL  
 
 A project focusing on **Financial Analytics, Risk Mitigation, and Trading Signal Detection** using SQL.  
