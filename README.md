@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Market Pulse: Stock Trends, Volatility and Trading Signals
 Financial Analytics and Risk Management.
 ---
@@ -37,3 +38,7 @@ This project fetches stock market data using **Alpha Vantage API**, stores it in
 1. Install **Python**:  `mysql-connector-python` and `requests`
 2. Set up the **market_data** table in MySQL
 3. Run the Python script to fetch and insert stock data
+=======
+# Stock-Trends-Analysis-SQL
+Financial Analytics and Risk Mitigation.
+>>>>>>> bc41f104a8b63c0b4b7650a874996ed832dc60f8
